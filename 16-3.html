@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>購物車</title>
+</head>
+<body>
+  <button id="showTotal">購物車總額</button>
+  <button id="clearCart">清空購物車</button>
+
+  <div>
+    <img src="123.jpg" width="150">
+    <p class="price">400</p>
+    <button class="addToCart">加入購物車</button>
+  </div>
+
+  <div>
+    <img src="456.jpg" width="150">
+    <p class="price">300</p>
+    <button class="addToCart">加入購物車</button>
+  </div>
+
+  <script>
+    let total = Number(localStorage.getItem("cartTotal")) || 0;
+    document.querySelectorAll(".addToCart").forEach(function (btn, i)
+     {
+      btn.addEventListener("click", function () 
+      {
+        let price = Number(document.querySelectorAll(".price")[i].textContent);
+        total += price;
+        localStorage.setItem("cartTotal", total);
+        console.log("目前總金額：$" + total);      
+      });
+    });
+   
+    document.querySelector("#showTotal").addEventListener("click", function () {
+      this.textContent = "總金額：$" + total;
+    });
+
+    document.querySelector("#clearCart").addEventListener("click", function () {
+      total = 0;
+      localStorage.removeItem("cartTotal");
+      document.querySelector("#showTotal").textContent = "購物車總額";
+      console.log("購物車已清空");
+    });
+  </script>
+</body>
+</html>
